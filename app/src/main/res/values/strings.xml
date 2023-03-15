@@ -2,6 +2,7 @@
 
     <!-- Common -->
     <string name="app_name">Demo App</string>
+    <string name="common_no_result_found">No results found</string>
 
     <!-- Pokemon Search -->
     <string name="pokemon_search_title">Search</string>

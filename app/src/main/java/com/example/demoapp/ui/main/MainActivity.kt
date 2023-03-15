@@ -1,30 +1,26 @@
 package com.example.demoapp.ui.main
 
-import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.demoapp.R
 import com.example.demoapp.databinding.ActivityMainBinding
+import com.example.demoapp.ui.common.base.activity.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val navController: NavController by lazy { findNavController(R.id.nav_host_fragment) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onBindView() = ActivityMainBinding.inflate(layoutInflater)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val navView: BottomNavigationView = binding.navView
-
-        val navController = findNavController(R.id.nav_host_fragment)
+    override fun setupViews() = binding?.apply {
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.pokemon_search_fragment, R.id.pokemon_favorites_fragment)
+            setOf(
+                R.id.pokemon_search_fragment,
+                R.id.pokemon_favorites_fragment
+            )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
