@@ -1,4 +1,4 @@
-package com.example.demoapp.util
+package com.example.demoapp.ui.common.view
 
 import android.R
 import android.content.Context

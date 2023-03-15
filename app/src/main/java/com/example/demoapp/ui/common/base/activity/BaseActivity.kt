@@ -6,7 +6,7 @@ import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.example.demoapp.ui.common.base.viewmodel.BaseViewModel
-import com.example.demoapp.util.CustomProgressBar
+import com.example.demoapp.ui.common.view.CustomProgressBar
 import javax.inject.Inject
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
