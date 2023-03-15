@@ -1,7 +1,7 @@
 package com.example.demoapp.ui.favorite
 
-import androidx.lifecycle.ViewModel
+import com.example.demoapp.ui.common.base.viewmodel.BaseViewModel
 
-class PokemonFavoritesViewModel : ViewModel() {
+class PokemonFavoritesViewModel : BaseViewModel() {
 
 }

@@ -1,8 +1,25 @@
 package com.example.demoapp.ui.search
 
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import com.example.demoapp.R
+import com.example.demoapp.databinding.FragmentPokemonSearchBinding
+import com.example.demoapp.ui.common.base.fragment.BaseVMFragment
+import com.example.demoapp.util.collectFlow
 
+class PokemonSearchFragment : BaseVMFragment<FragmentPokemonSearchBinding>() {
 
-class PokemonSearchFragment : Fragment() {
+    override val viewModel by hiltNavGraphViewModels<PokemonSearchViewModel>(R.id.nav_main)
 
+    override fun onBind(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentPokemonSearchBinding.inflate(inflater)
+
+    override fun setupViews() = binding
+
+    override fun observeUi() = collectFlow {}
+
+    override fun setOnClickListeners() = binding
 }

@@ -1,7 +1,7 @@
 package com.example.demoapp.ui.search
 
-import androidx.lifecycle.ViewModel
+import com.example.demoapp.ui.common.base.viewmodel.BaseViewModel
 
-class PokemonSearchViewModel : ViewModel() {
+class PokemonSearchViewModel : BaseViewModel() {
 
 }
