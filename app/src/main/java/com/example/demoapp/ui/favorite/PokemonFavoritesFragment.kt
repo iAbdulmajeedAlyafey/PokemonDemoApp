@@ -7,7 +7,9 @@ import com.example.demoapp.R
 import com.example.demoapp.databinding.FragmentPokemonFavoritesBinding
 import com.example.demoapp.ui.common.base.fragment.BaseVMFragment
 import com.example.demoapp.util.collectFlow
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PokemonFavoritesFragment : BaseVMFragment<FragmentPokemonFavoritesBinding>() {
 
     override val viewModel by hiltNavGraphViewModels<PokemonFavoritesViewModel>(R.id.nav_main)
