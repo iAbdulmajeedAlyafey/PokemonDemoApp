@@ -1,4 +1,4 @@
-package com.example.demoapp.di.annotations
+package com.example.demoapp.di
 
 import javax.inject.Qualifier
 

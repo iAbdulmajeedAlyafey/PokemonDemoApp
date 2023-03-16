@@ -11,11 +11,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PokemonDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavoritePokemon(pokemon: CachedPokemon)
-
     @Query("SELECT * FROM Pokemon WHERE isFavorite = 1")
-    fun getFavoritesList(): Flow<CachedPokemon>
+    fun getFavoritePokemonList(): Flow<List<CachedPokemon>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFavoritePokemon(pokemon: CachedPokemon)
 
     @Delete
     suspend fun deleteFavoritePokemon(pokemon: CachedPokemon)

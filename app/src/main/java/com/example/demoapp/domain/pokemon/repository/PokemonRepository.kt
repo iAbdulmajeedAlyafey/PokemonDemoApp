@@ -1,5 +1,15 @@
 package com.example.demoapp.domain.pokemon.repository
 
+import com.example.demoapp.domain.pokemon.model.Pokemon
+import kotlinx.coroutines.flow.Flow
+
 interface PokemonRepository {
 
+    fun getPokemonList(healthPoints: Int): Flow<List<Pokemon>>
+
+    fun getFavoritePokemonList(): Flow<List<Pokemon>>
+
+    suspend fun deleteFavoritePokemon(pokemon: Pokemon)
+
+    suspend fun saveFavoritePokemon(pokemon: Pokemon)
 }

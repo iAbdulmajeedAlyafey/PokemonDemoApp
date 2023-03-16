@@ -7,6 +7,8 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+def BASE_URL = 'BASE_URL'
+
 android {
     namespace appNamespace
     compileSdk compile_sdk_version
@@ -19,6 +21,7 @@ android {
         versionCode Integer.parseInt(project.VERSION_CODE)
         versionName "${project.VERSION_NAME}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", BASE_URL, "\"https://api.pokemontcg.io/v2/\""
     }
 
     buildTypes {
