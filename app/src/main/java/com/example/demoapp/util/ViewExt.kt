@@ -1,7 +1,9 @@
 package com.example.demoapp.util
 
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 
 fun View.hide() = apply {
   visibility = View.GONE
@@ -18,6 +20,8 @@ fun View.show() = apply {
 fun View.isNotVisible() = visibility != View.VISIBLE
 
 fun View.onClick(body: (View) -> Unit) = setOnClickListener(SingleClickListener { body(it) })
+
+val ViewGroup.layoutInflater: LayoutInflater get() = LayoutInflater.from(this.context)
 
 /**
  * This type of [View.OnClickListener] prevents multiple view clicks at one time.
