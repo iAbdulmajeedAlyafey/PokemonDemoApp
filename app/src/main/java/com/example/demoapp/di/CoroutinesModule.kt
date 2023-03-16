@@ -1,9 +1,5 @@
 package com.example.demoapp.di
 
-import com.example.demoapp.di.annotations.ApplicationScope
-import com.example.demoapp.di.annotations.DefaultDispatcher
-import com.example.demoapp.di.annotations.IoDispatcher
-import com.example.demoapp.di.annotations.MainDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -2,7 +2,7 @@ package com.example.demoapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.demoapp.data.common.source.local.database.AppDatabase
+import com.example.demoapp.data.common.source.local.AppDatabase
 import com.example.demoapp.data.pokemon.local.dao.PokemonDao
 import dagger.Module
 import dagger.Provides
@@ -17,17 +17,14 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun providesAppDatabase(
-        @ApplicationContext context: Context,
-    ): AppDatabase = Room.databaseBuilder(
-        context,
-        AppDatabase::class.java,
-        "app-database",
-    ).build()
+    fun providesAppDatabase(@ApplicationContext context: Context): AppDatabase =
+        Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "app-database",
+        ).build()
 
     @Provides
-    fun providesPokemonDao(
-        database: AppDatabase
-    ): PokemonDao = database.pokemonDao()
+    fun providesPokemonDao(database: AppDatabase): PokemonDao = database.pokemonDao()
 
 }

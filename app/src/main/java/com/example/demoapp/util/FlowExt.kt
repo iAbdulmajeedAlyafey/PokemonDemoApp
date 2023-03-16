@@ -1,10 +1,12 @@
 package com.example.demoapp.util
 
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.demoapp.R
 import com.example.demoapp.ui.common.state.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,3 +47,12 @@ fun <T> MutableStateFlow<UiState<T>>.successData(): T? {
   } else
     null
 }
+
+fun <T> T.toUiState(
+  @StringRes emptyListMessage: Int = R.string.common_no_result_found,
+): UiState<T> = when {
+  this is List<*> && this.isEmpty() -> UiState.Empty(emptyListMessage)
+  else -> UiState.Success(this)
+}
+
+fun <T> Throwable.toUiState(): UiState<T> = UiState.Error("Error")
