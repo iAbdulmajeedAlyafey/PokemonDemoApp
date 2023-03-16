@@ -47,7 +47,9 @@ ext {
     def hilt_jetpack_support = "1.0.0-alpha03"
 
     // Third Party Libraries.
-    def timber = "x.x.x"
+    def timber = "5.0.1"
+    def glide = "4.14.2"
+
 
     // Gson
     def json_serialization = "1.0.1"
@@ -135,7 +137,8 @@ ext {
     kaptGroup = [hiltKapt, roomKapt]
 
     thirdParty = [
-            // "com.jakewharton.timber:timber:$timber",
+            "com.jakewharton.timber:timber:$timber",
+            "com.github.bumptech.glide:glide:$glide",
     ]
 
     testImplementationGroup = [
