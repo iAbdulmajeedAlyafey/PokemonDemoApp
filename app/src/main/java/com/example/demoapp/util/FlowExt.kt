@@ -23,17 +23,6 @@ fun Fragment.collectFlow(
   }
 }
 
-fun AppCompatActivity.collectFlow(
-  state: Lifecycle.State = Lifecycle.State.STARTED,
-  block: suspend CoroutineScope.() -> Unit,
-) {
-  lifecycleScope.launch {
-    repeatOnLifecycle(state) {
-      block()
-    }
-  }
-}
-
 fun <T> uiStateFlowOf() = MutableStateFlow<UiState<T>>(UiState.Init())
 
 val <T> MutableStateFlow<T>.isLoading: Boolean get() = value is UiState.Loading<*>

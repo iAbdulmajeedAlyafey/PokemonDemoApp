@@ -51,11 +51,16 @@ class PokemonSearchViewModel @Inject constructor(
 
     fun onClickSavePokemon(pokemon: Pokemon) {
         flowOf(pokemon)
-            .onEach { pokemonRepository.saveFavoritePokemon(pokemon) }
+            .saveToFavorites()
             .onEach { _savePokemonEventState.send(it.toUiState()) }
             .catch { _savePokemonEventState.send(it.toUiState()) }
             .flowOn(ioDispatcher)
             .launchIn(viewModelScope)
+    }
+
+    private fun Flow<Pokemon>.saveToFavorites() = onEach {
+        it.isFavorite = true
+        pokemonRepository.saveFavoritePokemon(it)
     }
 
     fun onClickPokemon(pokemonId: String) {

@@ -1,31 +1,28 @@
-package com.example.demoapp.ui.search
+package com.example.demoapp.ui.favorite
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.demoapp.databinding.ItemPokemonBinding
+import com.example.demoapp.databinding.ItemPokemonFavoriteBinding
 import com.example.demoapp.domain.pokemon.model.Pokemon
 import com.example.demoapp.util.layoutInflater
 import com.example.demoapp.util.load
 import com.example.demoapp.util.onClick
 
-class PokemonSearchAdapter(
+class PokemonFavoritesAdapter(
     private val clickListener: PokemonClickListener,
-) : ListAdapter<Pokemon, PokemonSearchAdapter.PokemonViewHolder>(Pokemon.diffCallback) {
+) : ListAdapter<Pokemon, PokemonFavoritesAdapter.PokemonViewHolder>(Pokemon.diffCallback) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ) = PokemonViewHolder.from(parent)
 
-    override fun onBindViewHolder(
-        holder: PokemonViewHolder,
-        position: Int,
-    ) {
+    override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
         holder.bind(getItem(position), clickListener)
     }
 
-    class PokemonViewHolder(private val binding: ItemPokemonBinding) :
+    class PokemonViewHolder(private val binding: ItemPokemonFavoriteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
@@ -34,19 +31,21 @@ class PokemonSearchAdapter(
         ) = binding.apply {
             tvName.text = pokemon.name
             ivIcon.load(pokemon.image)
-            btnSave.onClick { clickListener.onClickSavePokemon(pokemon) }
             root.onClick { clickListener.onClickPokemon(pokemon.id) }
+            root.setOnLongClickListener {
+                clickListener.onLongClickPokemon(pokemon); true
+            }
         }
 
         companion object {
             fun from(parent: ViewGroup) = PokemonViewHolder(
-                ItemPokemonBinding.inflate(parent.layoutInflater, parent, false)
+                ItemPokemonFavoriteBinding.inflate(parent.layoutInflater, parent, false)
             )
         }
     }
 
     interface PokemonClickListener {
+        fun onLongClickPokemon(pokemon: Pokemon)
         fun onClickPokemon(pokemonId: String)
-        fun onClickSavePokemon(pokemon: Pokemon)
     }
 }
