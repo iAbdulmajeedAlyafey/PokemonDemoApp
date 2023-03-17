@@ -5,17 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_name"
-        style="@style/AppWidget.TextView.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        app:layout_constraintEnd_toEndOf="@+id/iv_icon"
-        app:layout_constraintStart_toStartOf="@+id/iv_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Pokemon 1" />
-
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="@dimen/dim_220dp"
@@ -27,14 +16,14 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_name"
         tools:src="@drawable/ic_pokemon" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_save"
-        style="@style/AppWidget.Button.TextButton"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_name"
+        style="@style/AppWidget.TextView.Bold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pokemon_search_button_save"
-        app:iconPadding="0dp"
+        android:layout_height="0dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintEnd_toEndOf="@+id/iv_icon"
         app:layout_constraintStart_toStartOf="@+id/iv_icon"
-        app:layout_constraintTop_toBottomOf="@+id/iv_icon" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Pokemon 1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
