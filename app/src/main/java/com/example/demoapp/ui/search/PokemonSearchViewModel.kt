@@ -12,7 +12,9 @@ import com.example.demoapp.util.toUiState
 import com.example.demoapp.util.uiStateFlowOf
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,14 +26,20 @@ class PokemonSearchViewModel @Inject constructor(
     private val _uiState = uiStateFlowOf<List<Pokemon>>()
     val uiState = _uiState.asStateFlow()
 
+    private val _uiEvent = Channel<PokemonSearchEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
+
+    private val _savePokemonEventState = Channel<UiState<Pokemon>>()
+    val savePokemonEventState = _savePokemonEventState.receiveAsFlow()
+
     var searchQuery: String = ""
         set(value) {
             field = value
             getPokemonList(value)
         }
 
-    fun getPokemonList(query: String) = flowOf(query)
-        .filter { it.length > 1 && it.isDigitsOnly()  }
+    private fun getPokemonList(query: String) = flowOf(query)
+        .filter { it.length > 1 && it.isDigitsOnly() }
         .onEmpty { _uiState.value = UiState.Empty() }
         .map(String::toInt)
         .onStart { _uiState.postLoading() }
@@ -41,7 +49,24 @@ class PokemonSearchViewModel @Inject constructor(
         .flowOn(ioDispatcher)
         .launchIn(viewModelScope)
 
-    fun onClickPokemon(pokemon: Pokemon) {
-        // todo navigate...
+    fun onClickSavePokemon(pokemon: Pokemon) {
+        flowOf(pokemon)
+            .onEach { pokemonRepository.saveFavoritePokemon(pokemon) }
+            .onEach { _savePokemonEventState.send(it.toUiState()) }
+            .catch { _savePokemonEventState.send(it.toUiState()) }
+            .flowOn(ioDispatcher)
+            .launchIn(viewModelScope)
+    }
+
+    fun onClickPokemon(pokemonId: String) {
+        PokemonSearchEvent.OpenPokemonDetailsView(pokemonId).emit()
+    }
+
+    private fun PokemonSearchEvent.emit() = viewModelScope.launch {
+        _uiEvent.send(this@emit)
+    }
+
+    sealed class PokemonSearchEvent {
+        data class OpenPokemonDetailsView(val id: String) : PokemonSearchEvent()
     }
 }

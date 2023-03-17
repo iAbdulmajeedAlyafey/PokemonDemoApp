@@ -6,7 +6,7 @@
 
     <!-- Pokemon Search -->
     <string name="pokemon_search_title">Search</string>
-    <string name="pokemon_search_saved">Saved to favorites successfully</string>
+    <string name="pokemon_search_saved">Saved to favorites successfully!</string>
     <string name="pokemon_search_hint">Search by health points</string>
     <string name="pokemon_search_button_save">Add to favorites</string>
     <string name="pokemon_search_content">Pokemon Image</string>

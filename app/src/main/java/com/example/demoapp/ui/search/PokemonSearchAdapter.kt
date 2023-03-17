@@ -11,7 +11,7 @@ import com.example.demoapp.util.load
 import com.example.demoapp.util.onClick
 
 class PokemonSearchAdapter(
-    private val onClickPokemon: (pokemon: Pokemon) -> Unit, // Use interface instead, if there are multiple actions.
+    private val clickListener: PokemonClickListener,
 ) : ListAdapter<Pokemon, PokemonSearchAdapter.PokemonViewHolder>(PokemonDiffUtil) {
 
     override fun onCreateViewHolder(
@@ -23,7 +23,7 @@ class PokemonSearchAdapter(
         holder: PokemonViewHolder,
         position: Int,
     ) {
-        holder.bind(getItem(position), onClickPokemon)
+        holder.bind(getItem(position), clickListener)
     }
 
     class PokemonViewHolder(private val binding: ItemPokemonBinding) :
@@ -31,11 +31,12 @@ class PokemonSearchAdapter(
 
         fun bind(
             pokemon: Pokemon,
-            onClickPokemon: (pokemon: Pokemon) -> Unit
+            clickListener: PokemonClickListener
         ) = binding.apply {
             tvName.text = pokemon.name
             ivIcon.load(pokemon.image)
-            root.onClick { onClickPokemon(pokemon) }
+            btnSave.onClick { clickListener.onClickSavePokemon(pokemon) }
+            root.onClick { clickListener.onClickPokemon(pokemon.id) }
         }
 
         companion object {
@@ -55,5 +56,10 @@ class PokemonSearchAdapter(
             oldItem: Pokemon,
             newItem: Pokemon,
         ) = oldItem == newItem
+    }
+
+    interface PokemonClickListener {
+        fun onClickPokemon(pokemonId: String)
+        fun onClickSavePokemon(pokemon: Pokemon)
     }
 }

@@ -55,4 +55,4 @@ fun <T> T.toUiState(
   else -> UiState.Success(this)
 }
 
-fun <T> Throwable.toUiState(): UiState<T> = UiState.Error("Error")
+fun <T> Throwable.toUiState(): UiState<T> = UiState.Error("Sorry, something went wrong!")
