@@ -44,7 +44,6 @@
             android:id="@+id/rcv_pokemon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim_30dp"
             android:clipToPadding="false"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/dim_80dp"
