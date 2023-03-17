@@ -3,6 +3,7 @@ package com.example.demoapp.ui.main
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.demoapp.R
@@ -17,14 +18,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onBindView() = ActivityMainBinding.inflate(layoutInflater)
 
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun setupViews() = binding?.apply {
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.pokemon_search_fragment,
-                R.id.pokemon_favorites_fragment
-            )
-        )
+        appBarConfiguration = AppBarConfiguration(topLevelFragments)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
+    override fun onSupportNavigateUp() =
+        NavigationUI.navigateUp(navController, appBarConfiguration)
 }
