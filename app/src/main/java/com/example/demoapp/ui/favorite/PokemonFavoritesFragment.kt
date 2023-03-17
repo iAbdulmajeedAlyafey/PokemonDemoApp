@@ -15,6 +15,7 @@ import com.example.demoapp.ui.common.state.UiState.*
 import com.example.demoapp.ui.favorite.PokemonFavoritesViewModel.PokemonFavoritesEvent
 import com.example.demoapp.ui.favorite.PokemonFavoritesViewModel.PokemonFavoritesEvent.OpenPokemonDetailsView
 import com.example.demoapp.util.collectFlow
+import com.example.demoapp.util.navigateSafely
 import com.example.demoapp.util.showError
 import com.example.demoapp.util.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,7 +63,9 @@ class PokemonFavoritesFragment : BaseVMFragment<FragmentPokemonFavoritesBinding>
     }
 
     private fun handleUiEvent(event: PokemonFavoritesEvent) = when (event) {
-        is OpenPokemonDetailsView -> toast("Go to details!") // todo navigate to details screen
+        is OpenPokemonDetailsView -> navController.navigateSafely(
+            PokemonFavoritesFragmentDirections.actionToPokemonDetailsFragment(event.id)
+        )
     }
 
     private fun handleDeletePokemonEventState(event: UiState<Pokemon>) = when (event) {

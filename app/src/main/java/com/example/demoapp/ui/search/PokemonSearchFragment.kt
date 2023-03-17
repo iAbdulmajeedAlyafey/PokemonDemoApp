@@ -14,6 +14,7 @@ import com.example.demoapp.ui.common.state.UiState.*
 import com.example.demoapp.ui.search.PokemonSearchViewModel.PokemonSearchEvent
 import com.example.demoapp.ui.search.PokemonSearchViewModel.PokemonSearchEvent.OpenPokemonDetailsView
 import com.example.demoapp.util.collectFlow
+import com.example.demoapp.util.navigateSafely
 import com.example.demoapp.util.onQueryChanges
 import com.example.demoapp.util.showError
 import com.example.demoapp.util.toast
@@ -56,7 +57,9 @@ class PokemonSearchFragment : BaseVMFragment<FragmentPokemonSearchBinding>(),
     }
 
     private fun handleUiEvent(event: PokemonSearchEvent) = when (event) {
-        is OpenPokemonDetailsView -> toast("Go to details!") // todo navigate to details screen
+        is OpenPokemonDetailsView -> navController.navigateSafely(
+            PokemonSearchFragmentDirections.actionToPokemonDetailsFragment(event.id)
+        )
     }
 
     private fun handleSavePokemonEventState(event: UiState<Pokemon>) = when (event) {

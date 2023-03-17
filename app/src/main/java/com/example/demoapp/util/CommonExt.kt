@@ -8,14 +8,8 @@ import com.google.gson.Gson
 
 fun Any?.toGson(): String = Gson().toJson(this)
 
-fun ImageView.load(
-    url: String?,
-    scaleType: ImageView.ScaleType = ImageView.ScaleType.MATRIX,
-) {
-    this.scaleType = scaleType
-    Glide.with(this)
-        .load(url)
-        .diskCacheStrategy(DiskCacheStrategy.ALL)
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .into(this)
-}
+fun ImageView.load(url: String?) = Glide.with(this)
+    .load(url)
+    .diskCacheStrategy(DiskCacheStrategy.ALL)
+    .transition(DrawableTransitionOptions.withCrossFade())
+    .into(this)

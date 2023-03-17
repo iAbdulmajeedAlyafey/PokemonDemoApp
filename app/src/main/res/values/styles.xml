@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <!-- #################### TextView #################### -->
     <style name="AppWidget.TextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:focusable">false</item>

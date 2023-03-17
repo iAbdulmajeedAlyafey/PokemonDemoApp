@@ -9,6 +9,8 @@ interface PokemonRepository {
 
     fun getFavoritePokemonList(): Flow<List<Pokemon>>
 
+    fun getPokemonDetails(id: String): Flow<Pokemon>
+
     suspend fun deleteFavoritePokemon(pokemon: Pokemon)
 
     suspend fun saveFavoritePokemon(pokemon: Pokemon)

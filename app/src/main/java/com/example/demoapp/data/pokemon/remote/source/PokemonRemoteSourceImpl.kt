@@ -11,4 +11,8 @@ class PokemonRemoteSourceImpl @Inject constructor(
     override fun getPokemonList(healthPoints: Int) = flow {
         emit(apiService.getPokemonList("hp:$healthPoints"))
     }
+
+    override fun getPokemonDetails(id: String) = flow {
+        emit(apiService.getPokemonDetails(id))
+    }
 }

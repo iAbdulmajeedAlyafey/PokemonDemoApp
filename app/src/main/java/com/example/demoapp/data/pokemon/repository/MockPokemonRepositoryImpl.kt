@@ -13,6 +13,9 @@ class MockPokemonRepositoryImpl @Inject constructor() : PokemonRepository {
     override fun getFavoritePokemonList(): Flow<List<Pokemon>> =
         throw NotImplementedError()
 
+    override fun getPokemonDetails(id: String): Flow<Pokemon> =
+        throw NotImplementedError()
+
     override suspend fun deleteFavoritePokemon(pokemon: Pokemon) =
         throw NotImplementedError()
 

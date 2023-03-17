@@ -2,7 +2,7 @@ package com.example.demoapp.data.pokemon.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ApiSearchResponse(
+data class ApiPokemonSearchResponse(
     @SerializedName("data") val data: List<ApiPokemon>?
 )
 
