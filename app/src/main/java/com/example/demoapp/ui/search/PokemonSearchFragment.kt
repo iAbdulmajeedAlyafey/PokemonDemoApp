@@ -3,11 +3,13 @@ package com.example.demoapp.ui.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResultListener
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.demoapp.R
 import com.example.demoapp.databinding.FragmentPokemonSearchBinding
 import com.example.demoapp.domain.pokemon.model.Pokemon
+import com.example.demoapp.ui.common.FragmentResult
 import com.example.demoapp.ui.common.base.fragment.BaseVMFragment
 import com.example.demoapp.ui.common.state.UiState
 import com.example.demoapp.ui.common.state.UiState.*
@@ -16,6 +18,7 @@ import com.example.demoapp.ui.search.PokemonSearchViewModel.PokemonSearchEvent.O
 import com.example.demoapp.util.collectFlow
 import com.example.demoapp.util.navigateSafely
 import com.example.demoapp.util.onQueryChanges
+import com.example.demoapp.util.query
 import com.example.demoapp.util.showError
 import com.example.demoapp.util.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,6 +77,13 @@ class PokemonSearchFragment : BaseVMFragment<FragmentPokemonSearchBinding>(),
             minLength = 2,
             doSearch = { viewModel.searchQuery = it }
         )
+    }
+
+    override fun checkFragmentResultListener() {
+        setFragmentResultListener(FragmentResult.UPDATE_POKEMON_SEARCH_LIST) { _, _ ->
+            toast(getString(R.string.pokemon_search_refresh_msg))
+            viewModel.searchQuery = binding?.svPokemon.query()
+        }
     }
 
     override fun onClickPokemon(pokemonId: String) = viewModel.onClickPokemon(pokemonId)

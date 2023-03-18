@@ -10,6 +10,7 @@
     <string name="pokemon_search_hint">Search by health points</string>
     <string name="pokemon_search_button_save">Add to favorites</string>
     <string name="pokemon_search_content">Pokemon Image</string>
+    <string name="pokemon_search_refresh_msg">Refreshing results now.. ONLY when user came back from details.</string>
 
     <!-- Pokemon Favorites List -->
     <string name="pokemon_favorites_title">Favorites</string>
