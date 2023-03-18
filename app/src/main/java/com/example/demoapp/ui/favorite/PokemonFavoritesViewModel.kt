@@ -2,6 +2,7 @@ package com.example.demoapp.ui.favorite
 
 import androidx.lifecycle.viewModelScope
 import com.example.demoapp.di.IoDispatcher
+import com.example.demoapp.di.MockRepository
 import com.example.demoapp.domain.pokemon.model.Pokemon
 import com.example.demoapp.domain.pokemon.repository.PokemonRepository
 import com.example.demoapp.ui.common.base.viewmodel.BaseViewModel
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PokemonFavoritesViewModel @Inject constructor(
-    private val pokemonRepository: PokemonRepository,
+    @MockRepository private val pokemonRepository: PokemonRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BaseViewModel() {
 
