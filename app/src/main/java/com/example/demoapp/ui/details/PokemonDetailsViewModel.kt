@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PokemonDetailsViewModel @Inject constructor(
-    @MockRepository private val pokemonRepository: PokemonRepository,
+    private val pokemonRepository: PokemonRepository,
     savedStateHandle: SavedStateHandle,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BaseViewModel() {
