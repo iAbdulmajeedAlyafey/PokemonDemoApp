@@ -2,6 +2,10 @@ package com.example.demoapp.data.common
 
 import com.example.demoapp.BuildConfig
 
+// Common Constants
+const val DATABASE_NAME = "app-database"
+const val DATE_STORE_NAME = "app-datastore"
+
 object HttpClient {
     val READ_TIMEOUT = if (BuildConfig.DEBUG) 80 else 60
     val CALL_TIMEOUT = if (BuildConfig.DEBUG) 80 else 60

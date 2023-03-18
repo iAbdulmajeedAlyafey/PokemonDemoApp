@@ -2,6 +2,7 @@ package com.example.demoapp.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.demoapp.data.common.DATABASE_NAME
 import com.example.demoapp.data.common.source.local.AppDatabase
 import com.example.demoapp.data.pokemon.local.dao.PokemonDao
 import dagger.Module
@@ -21,7 +22,7 @@ object DatabaseModule {
         Room.databaseBuilder(
             context,
             AppDatabase::class.java,
-            "app-database",
+            DATABASE_NAME,
         ).build()
 
     @Provides

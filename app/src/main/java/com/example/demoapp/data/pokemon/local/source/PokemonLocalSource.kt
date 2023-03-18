@@ -10,4 +10,8 @@ interface PokemonLocalSource {
     suspend fun saveFavoritePokemon(pokemon: CachedPokemon)
 
     suspend fun deleteFavoritePokemon(pokemon: CachedPokemon)
+
+    suspend fun saveLastPokemonDetailsEncrypted(pokemon: CachedPokemon)
+
+    fun getLastEncryptedPokemonDetails(): Flow<String>
 }

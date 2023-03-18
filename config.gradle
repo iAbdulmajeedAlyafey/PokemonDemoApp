@@ -28,6 +28,7 @@ ext {
     def material = "1.6.1"
     def core_ktx = "1.6.0-rc01"
     def core_google_play_version = "1.10.0"
+    def datastore = "1.0.0"
 
     // Kotlin Coroutines
     def kotlin_coroutines = "1.6.4"
@@ -68,6 +69,7 @@ ext {
             "androidx.constraintlayout:constraintlayout:$constraint_layout",
             "com.google.android.material:material:$material",
             "com.google.android.play:core:$core_google_play_version",
+            "androidx.datastore:datastore-preferences:$datastore"
     ]
 
     kotlinLib = [

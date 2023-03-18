@@ -44,4 +44,10 @@ class MockPokemonRepositoryImpl @Inject constructor(
     override suspend fun deleteFavoritePokemon(pokemon: Pokemon) {
         cachedFavoriteList.remove(pokemon)
     }
+
+    override suspend fun saveLastPokemonDetailsEncrypted(pokemon: Pokemon) =
+        throw NotImplementedError()
+
+    override fun getLastEncryptedPokemonDetails() =
+        throw NotImplementedError()
 }

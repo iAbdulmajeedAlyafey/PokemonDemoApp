@@ -3,7 +3,6 @@ package com.example.demoapp.ui.details
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.demoapp.di.IoDispatcher
-import com.example.demoapp.di.MockRepository
 import com.example.demoapp.domain.pokemon.model.Pokemon
 import com.example.demoapp.domain.pokemon.repository.PokemonRepository
 import com.example.demoapp.ui.common.base.viewmodel.BaseViewModel
@@ -12,12 +11,15 @@ import com.example.demoapp.util.toUiState
 import com.example.demoapp.util.uiStateFlowOf
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,6 +42,12 @@ class PokemonDetailsViewModel @Inject constructor(
         .onStart { _uiState.postLoading() }
         .onEach { _uiState.value = it.toUiState() }
         .catch { _uiState.value = it.toUiState() }
+        .printEncryptedPokemonDetails()
         .flowOn(ioDispatcher)
         .launchIn(viewModelScope)
+
+    private fun Flow<Pokemon>.printEncryptedPokemonDetails() =
+        flatMapLatest { pokemonRepository.getLastEncryptedPokemonDetails() }
+            .onEach { Timber.e("Encrypted Pokemon is: $it") }
+            .catch { Timber.e("Error happens when getting encrypted pokemon!") }
 }
