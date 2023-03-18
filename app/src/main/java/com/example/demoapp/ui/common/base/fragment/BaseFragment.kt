@@ -37,7 +37,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     @Inject
     lateinit var progressBar: CustomProgressBar
 
-
     @CallSuper
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -60,7 +59,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupNavController()
+        runCatching { navController = findNavController() }
         setupViews()
         setOnClickListeners()
         checkFragmentResultListener()
@@ -77,8 +76,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         hideLoading()
         super.onStop()
     }
-
-    private fun setupNavController() = runCatching { navController = findNavController() }
 
     open fun setOnTextChangeListeners(): VB? = null
 
