@@ -11,6 +11,7 @@ import com.example.demoapp.data.pokemon.remote.source.PokemonRemoteSource
 import com.example.demoapp.domain.pokemon.model.Pokemon
 import com.example.demoapp.domain.pokemon.repository.PokemonRepository
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class PokemonRepositoryImpl @Inject constructor(
@@ -29,10 +30,18 @@ class PokemonRepositoryImpl @Inject constructor(
     override fun getPokemonDetails(id: String) =
         remoteSource.getPokemonDetails(id)
             .map(ApiPokemonDetailsResponse::asPokemon)
+            .onEach { saveLastPokemonDetailsEncrypted(it) }
 
     override suspend fun saveFavoritePokemon(pokemon: Pokemon) =
         localSource.saveFavoritePokemon(pokemon.asCachedPokemon())
 
     override suspend fun deleteFavoritePokemon(pokemon: Pokemon) =
         localSource.deleteFavoritePokemon(pokemon.asCachedPokemon())
+
+    override suspend fun saveLastPokemonDetailsEncrypted(pokemon: Pokemon) {
+        localSource.saveLastPokemonDetailsEncrypted(pokemon.asCachedPokemon())
+    }
+
+    override fun getLastEncryptedPokemonDetails() =
+        localSource.getLastEncryptedPokemonDetails()
 }
