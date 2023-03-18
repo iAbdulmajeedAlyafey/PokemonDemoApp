@@ -49,3 +49,5 @@ fun SearchView.hideKeyboard() {
     ContextCompat.getSystemService(this.context, InputMethodManager::class.java)
   imm?.hideSoftInputFromWindow(this.windowToken, 0)
 }
+
+fun SearchView?.query() = this?.query?.toString().orEmpty()

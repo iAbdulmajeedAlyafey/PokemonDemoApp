@@ -1,9 +1,12 @@
 package com.example.demoapp.ui.common.base.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -17,16 +20,31 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     var binding: VB? = null
         private set
 
-    @Inject
-    lateinit var progressBar: CustomProgressBar
-
     protected lateinit var navController: NavController
 
     protected abstract fun onBind(inflater: LayoutInflater, container: ViewGroup?): VB
 
     protected open fun setupViews(): VB? = null
 
-    protected open fun setOnClickListeners() = binding
+    protected open fun setOnClickListeners(): VB? = binding
+
+    protected open fun checkFragmentResultListener() = Unit
+
+    private val backPressCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() = this@BaseFragment.onBackButtonPressed()
+    }
+
+    @Inject
+    lateinit var progressBar: CustomProgressBar
+
+
+    @CallSuper
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity
+            ?.onBackPressedDispatcher
+            ?.addCallback(this, this@BaseFragment.backPressCallback)
+    }
 
     @CallSuper
     override fun onCreateView(
@@ -34,6 +52,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+        setHasOptionsMenu(true)
         binding = onBind(inflater, container)
         return binding?.root ?: return null
     }
@@ -44,6 +63,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         setupNavController()
         setupViews()
         setOnClickListeners()
+        checkFragmentResultListener()
     }
 
     @CallSuper
@@ -67,6 +87,17 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     open fun showLoading() = progressBar.show()
 
     open fun hideLoading() = progressBar.hide()
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) onUpButtonPressed()
+        return true
+    }
+
+    open fun onUpButtonPressed() = onBackButtonPressed()
+
+    open fun onBackButtonPressed() {
+        navController.navigateUp()
+    }
 
     override fun onDestroyView() {
         binding = null
