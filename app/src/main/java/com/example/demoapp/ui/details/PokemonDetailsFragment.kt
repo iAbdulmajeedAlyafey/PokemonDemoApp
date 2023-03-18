@@ -1,11 +1,8 @@
 package com.example.demoapp.ui.details
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.navigation.fragment.navArgs
+import androidx.fragment.app.viewModels
 import com.example.demoapp.R
 import com.example.demoapp.databinding.FragmentPokemonDetailsBinding
 import com.example.demoapp.domain.pokemon.model.Pokemon
@@ -21,9 +18,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class PokemonDetailsFragment : BaseVMFragment<FragmentPokemonDetailsBinding>() {
 
-    override val viewModel by hiltNavGraphViewModels<PokemonDetailsViewModel>(R.id.nav_main)
-
-    private val args: PokemonDetailsFragmentArgs by navArgs()
+    override val viewModel: PokemonDetailsViewModel by viewModels()
 
     override fun onBind(
         inflater: LayoutInflater,
@@ -32,11 +27,6 @@ class PokemonDetailsFragment : BaseVMFragment<FragmentPokemonDetailsBinding>() {
 
     override fun observeUi() = collectFlow {
         launch { viewModel.uiState.collect(::handleUiState) }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.getPokemonDetails(args.pokemonId)
     }
 
     private fun handleUiState(state: UiState<Pokemon>) {

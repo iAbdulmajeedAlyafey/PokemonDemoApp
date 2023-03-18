@@ -22,13 +22,20 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonDetailsViewModel @Inject constructor(
     private val pokemonRepository: PokemonRepository,
+    savedStateHandle: SavedStateHandle,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BaseViewModel() {
 
     private val _uiState = uiStateFlowOf<Pokemon>()
     val uiState = _uiState.asStateFlow()
 
-    fun getPokemonDetails(id: String) = pokemonRepository.getPokemonDetails(id)
+    private val args = PokemonDetailsFragmentArgs.fromSavedStateHandle(savedStateHandle)
+
+    init {
+        getPokemonDetails(args.pokemonId)
+    }
+
+    private fun getPokemonDetails(id: String) = pokemonRepository.getPokemonDetails(id)
         .onStart { _uiState.postLoading() }
         .onEach { _uiState.value = it.toUiState() }
         .catch { _uiState.value = it.toUiState() }
