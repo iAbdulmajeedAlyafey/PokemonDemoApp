@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PokemonSearchViewModel @Inject constructor(
-    @MockRepository private val pokemonRepository: PokemonRepository,
+    private val pokemonRepository: PokemonRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BaseViewModel() {
 
