@@ -1,6 +1,6 @@
 package com.example.demoapp.di
 
-import com.example.demoapp.data.pokemon.repository.MockPokemonRepositoryImpl
+import com.example.demoapp.data.pokemon.repository.FakePokemonRepositoryImpl
 import com.example.demoapp.data.pokemon.repository.PokemonRepositoryImpl
 import com.example.demoapp.domain.pokemon.repository.PokemonRepository
 import dagger.Binds
@@ -17,8 +17,8 @@ interface RepositoryModule {
     @Singleton
     fun bindPokemonRepository(repository: PokemonRepositoryImpl): PokemonRepository
 
-    @MockRepository
+    @FakeRepository
     @Binds
     @Singleton
-    fun bindMockPokemonRepository(repository: MockPokemonRepositoryImpl): PokemonRepository
+    fun bindFakePokemonRepository(repository: FakePokemonRepositoryImpl): PokemonRepository
 }

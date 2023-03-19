@@ -24,4 +24,4 @@ annotation class MainDispatcher
 
 @Retention(AnnotationRetention.BINARY)
 @Qualifier
-annotation class MockRepository
+annotation class FakeRepository
