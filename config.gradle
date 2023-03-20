@@ -63,6 +63,7 @@ ext {
     def coroutines_test = "1.4.2"
     def core_testing = "2.1.0"
     def truth = "1.0"
+    def robolectric = "4.9"
 
     androidCore = [
             "androidx.appcompat:appcompat:$appcompat",
@@ -155,6 +156,7 @@ ext {
             "org.mockito:mockito-inline:$mockito",
             "org.mockito.kotlin:mockito-kotlin:$mockito_kotlin",
             "com.google.truth:truth:$truth",
+            "org.robolectric:robolectric:$robolectric",
     ]
 
     androidTestImplementationGroup = [
