@@ -5,8 +5,8 @@
  */
 ext {
 
-    appNamespace = 'com.example.demoapp'
     appId = "com.example.demoapp"
+    appNamespace = 'com.example.demoapp'
 
     compile_sdk_version = 32
     build_tool_version = "30.0.3"
@@ -51,7 +51,6 @@ ext {
     def timber = "5.0.1"
     def glide = "4.14.2"
 
-
     // Gson
     def json_serialization = "1.0.1"
 
@@ -59,6 +58,11 @@ ext {
     def junit = "4.13.2"
     def junit_android_test = "1.1.2"
     def espresso_core = "3.3.0"
+    def mockito = "3.8.0"
+    def mockito_kotlin = "4.0.0"
+    def coroutines_test = "1.4.2"
+    def core_testing = "2.1.0"
+    def truth = "1.0"
 
     androidCore = [
             "androidx.appcompat:appcompat:$appcompat",
@@ -144,12 +148,19 @@ ext {
     ]
 
     testImplementationGroup = [
-            "junit:junit:$junit"
+            "junit:junit:$junit",
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test",
+            "androidx.arch.core:core-testing:$core_testing",
+            "org.mockito:mockito-core:$mockito",
+            "org.mockito:mockito-inline:$mockito",
+            "org.mockito.kotlin:mockito-kotlin:$mockito_kotlin",
+            "com.google.truth:truth:$truth",
     ]
 
     androidTestImplementationGroup = [
             "androidx.test.ext:junit:$junit_android_test",
-            "androidx.test.espresso:espresso-core:$espresso_core"
+            "androidx.test.espresso:espresso-core:$espresso_core",
+            "org.mockito:mockito-android:$mockito",
     ]
 }
 

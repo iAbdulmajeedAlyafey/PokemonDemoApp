@@ -16,6 +16,11 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
+/**
+ * Fake implementation of the [PokemonRepository] that returns hardcoded pokemon data.
+ *
+ * This helps in running the app without an internet connection or backend integration.
+ */
 class FakePokemonRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : PokemonRepository {
