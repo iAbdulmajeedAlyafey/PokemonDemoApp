@@ -5,49 +5,52 @@ import androidx.lifecycle.viewModelScope
 import com.example.demoapp.di.IoDispatcher
 import com.example.demoapp.domain.pokemon.model.Pokemon
 import com.example.demoapp.domain.pokemon.repository.PokemonRepository
+import com.example.demoapp.ui.common.SHARING_STRATEGY
 import com.example.demoapp.ui.common.base.viewmodel.BaseViewModel
-import com.example.demoapp.util.postLoading
+import com.example.demoapp.ui.common.state.UiState
 import com.example.demoapp.util.toUiState
-import com.example.demoapp.util.uiStateFlowOf
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class PokemonDetailsViewModel @Inject constructor(
-    private val pokemonRepository: PokemonRepository,
+    pokemonRepository: PokemonRepository,
     savedStateHandle: SavedStateHandle,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BaseViewModel() {
 
-    private val _uiState = uiStateFlowOf<Pokemon>()
-    val uiState = _uiState.asStateFlow()
-
     private val args = PokemonDetailsFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
-    init {
-        getPokemonDetails(args.pokemonId)
+    val uiState: StateFlow<UiState<Pokemon>> =
+        pokemonUiState(
+            pokemonId = args.pokemonId,
+            repository = pokemonRepository
+        )
+            .printEncryptedPokemonDetails()
+            .map { it.first.toUiState() } // it.first = Pokemon
+            .onStart { emit(UiState.Loading()) }
+            .catch { emit(it.toUiState()) }
+            .flowOn(ioDispatcher)
+            .stateIn(
+                scope = viewModelScope,
+                started = SHARING_STRATEGY,
+                initialValue = UiState.Init(),
+            )
+
+    private fun pokemonUiState(
+        pokemonId: String,
+        repository: PokemonRepository
+    ): Flow<Pair<Pokemon, String>> = combine(
+        repository.getPokemonDetails(pokemonId),
+        repository.getLastEncryptedPokemonDetails(),
+        ::Pair
+    )
+
+    private fun Flow<Pair<Pokemon, String>>.printEncryptedPokemonDetails() = onEach {
+        val (_, encryptedDetails) = it
+        Timber.e("Encrypted Pokemon is: $encryptedDetails")
     }
-
-    private fun getPokemonDetails(id: String) = pokemonRepository.getPokemonDetails(id)
-        .onStart { _uiState.postLoading() }
-        .onEach { _uiState.value = it.toUiState() }
-        .catch { _uiState.value = it.toUiState() }
-        .printEncryptedPokemonDetails()
-        .flowOn(ioDispatcher)
-        .launchIn(viewModelScope)
-
-    private fun Flow<Pokemon>.printEncryptedPokemonDetails() =
-        flatMapLatest { pokemonRepository.getLastEncryptedPokemonDetails() }
-            .onEach { Timber.e("Encrypted Pokemon is: $it") }
-            .catch { Timber.e("Error happens when getting encrypted pokemon!") }
 }

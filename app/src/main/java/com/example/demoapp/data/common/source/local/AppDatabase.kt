@@ -7,6 +7,7 @@ import com.example.demoapp.data.pokemon.local.model.CachedPokemon
 
 @Database(
     entities = [CachedPokemon::class],
+    exportSchema = false,
     version = 1,
 )
 abstract class AppDatabase : RoomDatabase() {
