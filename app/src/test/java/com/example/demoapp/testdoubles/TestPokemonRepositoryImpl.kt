@@ -1,4 +1,4 @@
-package com.example.demoapp.repository
+package com.example.demoapp.testdoubles
 
 import com.example.demoapp.domain.pokemon.model.Pokemon
 import com.example.demoapp.domain.pokemon.repository.PokemonRepository
@@ -10,9 +10,9 @@ import javax.inject.Inject
 
 class TestPokemonRepositoryImpl @Inject constructor() : PokemonRepository {
 
-    private val favoritesListFlow: MutableSharedFlow<List<Pokemon>> = MutableSharedFlow(replay = 1)
-
     private val pokemonListFlow: MutableSharedFlow<List<Pokemon>> = MutableSharedFlow(replay = 1)
+
+    private val favoritesListFlow: MutableSharedFlow<List<Pokemon>> = MutableSharedFlow(replay = 1)
 
     private val detailsFlow: MutableSharedFlow<Pokemon> = MutableSharedFlow(replay = 1)
 
@@ -42,5 +42,10 @@ class TestPokemonRepositoryImpl @Inject constructor() : PokemonRepository {
     @TestOnly
     fun saveFavoritePokemonList(list: List<Pokemon>) {
         favoritesListFlow.tryEmit(list)
+    }
+
+    @TestOnly
+    fun savePokemonList(list: List<Pokemon>) {
+        pokemonListFlow.tryEmit(list)
     }
 }
