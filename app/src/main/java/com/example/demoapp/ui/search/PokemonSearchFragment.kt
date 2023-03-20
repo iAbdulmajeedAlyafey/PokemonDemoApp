@@ -1,6 +1,8 @@
 package com.example.demoapp.ui.search
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
@@ -40,6 +42,11 @@ class PokemonSearchFragment : BaseVMFragment<FragmentPokemonSearchBinding>(),
     override fun setupViews() = binding?.apply {
         pokemonAdapter = PokemonSearchAdapter(this@PokemonSearchFragment)
         rcvPokemon.adapter = pokemonAdapter
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        enableBaseToHandleBackPress()
     }
 
     override fun observeUi() = collectFlow {

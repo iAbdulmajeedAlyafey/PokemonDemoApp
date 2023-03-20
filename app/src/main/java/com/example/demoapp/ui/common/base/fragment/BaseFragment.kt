@@ -96,6 +96,14 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         navController.navigateUp()
     }
 
+    /**
+     * When [isEnabled] is false, then parent fragment will handle back press,
+     * otherwise child fragment handles it.
+     */
+    protected open fun enableBaseToHandleBackPress(isEnabled: Boolean = false) {
+        backPressCallback.isEnabled = isEnabled
+    }
+
     override fun onDestroyView() {
         binding = null
         super.onDestroyView()
