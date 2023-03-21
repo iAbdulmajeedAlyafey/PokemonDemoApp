@@ -33,8 +33,8 @@ internal class PokemonSearchViewModelTest {
     @Before
     fun beforeTest() {
         viewModel = PokemonSearchViewModel(
-            pokemonRepository,
-            UnconfinedTestDispatcher()
+            pokemonRepository = pokemonRepository,
+            ioDispatcher = UnconfinedTestDispatcher()
         )
     }
 
