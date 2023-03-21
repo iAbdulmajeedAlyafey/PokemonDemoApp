@@ -29,8 +29,8 @@ internal class PokemonFavoritesViewModelTest {
     @Before
     fun beforeTest() {
         viewModel = PokemonFavoritesViewModel(
-            pokemonRepository,
-            UnconfinedTestDispatcher()
+            pokemonRepository = pokemonRepository,
+            ioDispatcher = UnconfinedTestDispatcher()
         )
     }
 
@@ -51,7 +51,7 @@ internal class PokemonFavoritesViewModelTest {
         }
         assertThat(uiStatesList.first()).isInstanceOf(UiState.Init::class.java)
 
-        pokemonRepository.saveFavoritePokemonList(testInputPokemonList)
+        pokemonRepository.setFavoritePokemonList(testInputPokemonList)
 
         viewModel.getFavoritePokemonList()
 
@@ -65,7 +65,7 @@ internal class PokemonFavoritesViewModelTest {
         val job = launch(UnconfinedTestDispatcher()) {
             viewModel.uiState.toList(uiStatesList)
         }
-        pokemonRepository.saveFavoritePokemonList(emptyList())
+        pokemonRepository.setFavoritePokemonList(emptyList())
 
         viewModel.getFavoritePokemonList()
 
@@ -80,7 +80,7 @@ internal class PokemonFavoritesViewModelTest {
             viewModel.uiState.toList(uiStatesList)
         }
 
-        pokemonRepository.saveFavoritePokemonList(testInputPokemonList)
+        pokemonRepository.setFavoritePokemonList(testInputPokemonList)
 
         viewModel.getFavoritePokemonList()
 

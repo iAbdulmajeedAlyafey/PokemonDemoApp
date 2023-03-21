@@ -5,7 +5,10 @@ import com.example.demoapp.domain.pokemon.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.onEach
 import org.jetbrains.annotations.TestOnly
+import java.io.IOException
 import javax.inject.Inject
 
 class TestPokemonRepositoryImpl @Inject constructor() : PokemonRepository {
@@ -14,11 +17,13 @@ class TestPokemonRepositoryImpl @Inject constructor() : PokemonRepository {
 
     private val favoritesListFlow: MutableSharedFlow<List<Pokemon>> = MutableSharedFlow(replay = 1)
 
-    private val detailsFlow: MutableSharedFlow<Pokemon> = MutableSharedFlow(replay = 1)
+    private val pokemonDetailsFlow: MutableSharedFlow<Pokemon?> = MutableSharedFlow(replay = 1)
 
     override fun getPokemonList(healthPoints: Int) = pokemonListFlow
 
-    override fun getPokemonDetails(id: String): Flow<Pokemon> = detailsFlow
+    override fun getPokemonDetails(id: String): Flow<Pokemon> = pokemonDetailsFlow
+        .onEach { if (it == null) throw IOException() } // To make some test cases fails.
+        .mapNotNull { it }
 
     override fun getFavoritePokemonList(): Flow<List<Pokemon>> = favoritesListFlow
 
@@ -40,12 +45,17 @@ class TestPokemonRepositoryImpl @Inject constructor() : PokemonRepository {
     override fun getLastEncryptedPokemonDetails() = flowOf("")
 
     @TestOnly
-    fun saveFavoritePokemonList(list: List<Pokemon>) {
+    fun savePokemonList(list: List<Pokemon>) {
+        pokemonListFlow.tryEmit(list)
+    }
+
+    @TestOnly
+    fun setFavoritePokemonList(list: List<Pokemon>) {
         favoritesListFlow.tryEmit(list)
     }
 
     @TestOnly
-    fun savePokemonList(list: List<Pokemon>) {
-        pokemonListFlow.tryEmit(list)
+    fun setPokemonDetails(pokemon: Pokemon?) {
+        pokemonDetailsFlow.tryEmit(pokemon)
     }
 }
