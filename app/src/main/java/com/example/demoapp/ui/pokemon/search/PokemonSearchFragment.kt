@@ -1,4 +1,4 @@
-package com.example.demoapp.ui.search
+package com.example.demoapp.ui.pokemon.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,8 +15,8 @@ import com.example.demoapp.ui.common.FragmentResult
 import com.example.demoapp.ui.common.base.fragment.BaseVMFragment
 import com.example.demoapp.ui.common.state.UiState
 import com.example.demoapp.ui.common.state.UiState.*
-import com.example.demoapp.ui.search.PokemonSearchViewModel.PokemonSearchEvent
-import com.example.demoapp.ui.search.PokemonSearchViewModel.PokemonSearchEvent.OpenPokemonDetailsView
+import com.example.demoapp.ui.pokemon.search.PokemonSearchViewModel.PokemonSearchEvent
+import com.example.demoapp.ui.pokemon.search.PokemonSearchViewModel.PokemonSearchEvent.OpenPokemonDetailsView
 import com.example.demoapp.util.collectFlow
 import com.example.demoapp.util.navigateSafely
 import com.example.demoapp.util.onQueryChanges

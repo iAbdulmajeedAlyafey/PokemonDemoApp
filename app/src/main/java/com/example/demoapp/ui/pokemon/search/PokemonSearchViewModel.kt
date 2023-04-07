@@ -1,4 +1,4 @@
-package com.example.demoapp.ui.search
+package com.example.demoapp.ui.pokemon.search
 
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.viewModelScope

@@ -1,4 +1,4 @@
-package com.example.demoapp.ui.details
+package com.example.demoapp.ui.pokemon.details
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope

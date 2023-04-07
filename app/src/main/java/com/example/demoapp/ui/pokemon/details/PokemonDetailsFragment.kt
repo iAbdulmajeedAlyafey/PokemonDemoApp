@@ -1,4 +1,4 @@
-package com.example.demoapp.ui.details
+package com.example.demoapp.ui.pokemon.details
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

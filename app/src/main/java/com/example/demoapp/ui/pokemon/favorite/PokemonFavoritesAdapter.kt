@@ -1,4 +1,4 @@
-package com.example.demoapp.ui.favorite
+package com.example.demoapp.ui.pokemon.favorite
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

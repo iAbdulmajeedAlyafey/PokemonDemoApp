@@ -1,4 +1,4 @@
-package com.example.demoapp.ui.favorite
+package com.example.demoapp.ui.pokemon.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import com.example.demoapp.domain.pokemon.model.Pokemon
 import com.example.demoapp.ui.common.base.fragment.BaseVMFragment
 import com.example.demoapp.ui.common.state.UiState
 import com.example.demoapp.ui.common.state.UiState.*
-import com.example.demoapp.ui.favorite.PokemonFavoritesViewModel.PokemonFavoritesEvent
-import com.example.demoapp.ui.favorite.PokemonFavoritesViewModel.PokemonFavoritesEvent.OpenPokemonDetailsView
+import com.example.demoapp.ui.pokemon.favorite.PokemonFavoritesViewModel.PokemonFavoritesEvent
+import com.example.demoapp.ui.pokemon.favorite.PokemonFavoritesViewModel.PokemonFavoritesEvent.OpenPokemonDetailsView
 import com.example.demoapp.util.collectFlow
 import com.example.demoapp.util.navigateSafely
 import com.example.demoapp.util.showError

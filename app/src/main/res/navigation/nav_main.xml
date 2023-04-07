@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/pokemon_search_fragment"
-        android:name="com.example.demoapp.ui.search.PokemonSearchFragment"
+        android:name="com.example.demoapp.ui.pokemon.search.PokemonSearchFragment"
         android:label="@string/pokemon_search_title"
         tools:layout="@layout/fragment_pokemon_search">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/pokemon_favorites_fragment"
-        android:name="com.example.demoapp.ui.favorite.PokemonFavoritesFragment"
+        android:name="com.example.demoapp.ui.pokemon.favorite.PokemonFavoritesFragment"
         android:label="@string/pokemon_favorites_title"
         tools:layout="@layout/fragment_pokemon_favorites">
         <action
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/pokemon_details_fragment"
-        android:name="com.example.demoapp.ui.details.PokemonDetailsFragment"
+        android:name="com.example.demoapp.ui.pokemon.details.PokemonDetailsFragment"
         android:label="{pokemonId}"
         tools:layout="@layout/fragment_pokemon_details">
 

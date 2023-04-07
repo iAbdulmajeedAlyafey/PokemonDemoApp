@@ -3,6 +3,7 @@ package com.example.demoapp.ui.search
 import com.example.demoapp.domain.pokemon.model.Pokemon
 import com.example.demoapp.testdoubles.TestPokemonRepositoryImpl
 import com.example.demoapp.ui.common.state.UiState
+import com.example.demoapp.ui.pokemon.search.PokemonSearchViewModel
 import com.example.demoapp.util.MainDispatcherRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.collect

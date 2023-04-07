@@ -1,4 +1,4 @@
-package com.example.demoapp.ui.search
+package com.example.demoapp.ui.pokemon.search
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

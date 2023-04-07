@@ -1,4 +1,4 @@
-package com.example.demoapp.ui.favorite
+package com.example.demoapp.ui.pokemon.favorite
 
 import androidx.lifecycle.viewModelScope
 import com.example.demoapp.di.IoDispatcher
