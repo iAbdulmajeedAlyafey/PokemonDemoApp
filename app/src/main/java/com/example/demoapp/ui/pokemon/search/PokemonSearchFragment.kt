@@ -13,6 +13,8 @@ import com.example.demoapp.databinding.FragmentPokemonSearchBinding
 import com.example.demoapp.domain.pokemon.model.Pokemon
 import com.example.demoapp.ui.common.FragmentResult
 import com.example.demoapp.ui.common.base.fragment.BaseVMFragment
+import com.example.demoapp.ui.common.delegates.progressbar.ProgressBar
+import com.example.demoapp.ui.common.delegates.progressbar.ProgressBarImpl
 import com.example.demoapp.ui.common.state.UiState
 import com.example.demoapp.ui.common.state.UiState.*
 import com.example.demoapp.ui.pokemon.search.PokemonSearchViewModel.PokemonSearchEvent
@@ -28,11 +30,17 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PokemonSearchFragment : BaseVMFragment<FragmentPokemonSearchBinding>(),
+    ProgressBar by ProgressBarImpl(),
     PokemonSearchAdapter.PokemonClickListener {
 
     override val viewModel by hiltNavGraphViewModels<PokemonSearchViewModel>(R.id.nav_main)
 
     private lateinit var pokemonAdapter: PokemonSearchAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setUpProgressBar(requireActivity())
+    }
 
     override fun onBind(
         inflater: LayoutInflater,
@@ -42,11 +50,6 @@ class PokemonSearchFragment : BaseVMFragment<FragmentPokemonSearchBinding>(),
     override fun setupViews() = binding?.apply {
         pokemonAdapter = PokemonSearchAdapter(this@PokemonSearchFragment)
         rcvPokemon.adapter = pokemonAdapter
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        enableBaseToHandleBackPress()
     }
 
     override fun observeUi() = collectFlow {

@@ -1,5 +1,6 @@
 package com.example.demoapp.ui.pokemon.details
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
@@ -10,6 +11,8 @@ import com.example.demoapp.databinding.FragmentPokemonDetailsBinding
 import com.example.demoapp.domain.pokemon.model.Pokemon
 import com.example.demoapp.ui.common.FragmentResult
 import com.example.demoapp.ui.common.base.fragment.BaseVMFragment
+import com.example.demoapp.ui.common.delegates.progressbar.ProgressBar
+import com.example.demoapp.ui.common.delegates.progressbar.ProgressBarImpl
 import com.example.demoapp.ui.common.state.UiState
 import com.example.demoapp.ui.common.state.UiState.*
 import com.example.demoapp.util.collectFlow
@@ -19,9 +22,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PokemonDetailsFragment : BaseVMFragment<FragmentPokemonDetailsBinding>() {
+class PokemonDetailsFragment :
+    BaseVMFragment<FragmentPokemonDetailsBinding>(),
+    ProgressBar by ProgressBarImpl() {
 
     override val viewModel: PokemonDetailsViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setUpProgressBar(requireActivity())
+    }
 
     override fun onBind(
         inflater: LayoutInflater,

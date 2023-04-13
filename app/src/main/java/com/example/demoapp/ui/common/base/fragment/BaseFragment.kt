@@ -1,19 +1,15 @@
 package com.example.demoapp.ui.common.base.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import com.example.demoapp.ui.common.view.CustomProgressBar
-import javax.inject.Inject
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
@@ -29,21 +25,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     protected open fun setOnClickListeners(): VB? = binding
 
     protected open fun checkFragmentResultListener() = Unit
-
-    private val backPressCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() = this@BaseFragment.onBackButtonPressed()
-    }
-
-    @Inject
-    lateinit var progressBar: CustomProgressBar
-
-    @CallSuper
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity
-            ?.onBackPressedDispatcher
-            ?.addCallback(this, this@BaseFragment.backPressCallback)
-    }
 
     @CallSuper
     override fun onCreateView(
@@ -71,19 +52,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         setOnTextChangeListeners()
     }
 
-    @CallSuper
-    override fun onStop() {
-        hideLoading()
-        super.onStop()
-    }
-
     open fun setOnTextChangeListeners(): VB? = null
-
-    open fun setLoading(isLoading: Boolean) = if (isLoading) showLoading() else hideLoading()
-
-    open fun showLoading() = progressBar.show()
-
-    open fun hideLoading() = progressBar.hide()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) onUpButtonPressed()
@@ -94,14 +63,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     open fun onBackButtonPressed() {
         navController.navigateUp()
-    }
-
-    /**
-     * When [isEnabled] is false, then parent fragment will handle back press,
-     * otherwise child fragment handles it.
-     */
-    protected open fun enableBaseToHandleBackPress(isEnabled: Boolean = false) {
-        backPressCallback.isEnabled = isEnabled
     }
 
     override fun onDestroyView() {
