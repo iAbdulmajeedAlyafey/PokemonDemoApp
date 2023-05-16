@@ -1,13 +1,14 @@
 package com.example.demoapp.ui.common.delegates.progressbar
 
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.example.demoapp.ui.common.view.CustomProgressBar
+import java.lang.ref.WeakReference
 
 interface ProgressBar {
 
-    fun setUpProgressBar(activity: FragmentActivity)
+    fun setUpProgressBar(fragment: Fragment)
 
     fun setLoading(isLoading: Boolean)
 
@@ -20,9 +21,14 @@ class ProgressBarImpl : ProgressBar, DefaultLifecycleObserver {
 
     private lateinit var progressBar: CustomProgressBar
 
-    override fun setUpProgressBar(activity: FragmentActivity) {
-        progressBar = CustomProgressBar(activity)
-        activity.lifecycle.addObserver(this)
+    private lateinit var fragmentRef: WeakReference<Fragment>
+
+    override fun setUpProgressBar(fragment: Fragment) {
+        fragmentRef = WeakReference(fragment)
+        fragmentRef.get()?.apply {
+            progressBar = CustomProgressBar(requireActivity())
+            lifecycle.addObserver(this@ProgressBarImpl)
+        }
     }
 
     override fun setLoading(isLoading: Boolean) = if (isLoading) showLoading() else hideLoading()

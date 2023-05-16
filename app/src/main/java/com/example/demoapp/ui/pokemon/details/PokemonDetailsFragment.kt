@@ -1,6 +1,5 @@
 package com.example.demoapp.ui.pokemon.details
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
@@ -14,7 +13,9 @@ import com.example.demoapp.ui.common.base.fragment.BaseVMFragment
 import com.example.demoapp.ui.common.delegates.progressbar.ProgressBar
 import com.example.demoapp.ui.common.delegates.progressbar.ProgressBarImpl
 import com.example.demoapp.ui.common.state.UiState
-import com.example.demoapp.ui.common.state.UiState.*
+import com.example.demoapp.ui.common.state.UiState.Error
+import com.example.demoapp.ui.common.state.UiState.Loading
+import com.example.demoapp.ui.common.state.UiState.Success
 import com.example.demoapp.util.collectFlow
 import com.example.demoapp.util.load
 import com.example.demoapp.util.showError
@@ -28,9 +29,8 @@ class PokemonDetailsFragment :
 
     override val viewModel: PokemonDetailsViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setUpProgressBar(requireActivity())
+    override fun setupViews() = binding?.apply {
+        setUpProgressBar(this@PokemonDetailsFragment)
     }
 
     override fun onBind(

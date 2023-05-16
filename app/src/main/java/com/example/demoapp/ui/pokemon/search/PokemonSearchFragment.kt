@@ -37,17 +37,13 @@ class PokemonSearchFragment : BaseVMFragment<FragmentPokemonSearchBinding>(),
 
     private lateinit var pokemonAdapter: PokemonSearchAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setUpProgressBar(requireActivity())
-    }
-
     override fun onBind(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentPokemonSearchBinding.inflate(inflater)
 
     override fun setupViews() = binding?.apply {
+        setUpProgressBar(this@PokemonSearchFragment)
         pokemonAdapter = PokemonSearchAdapter(this@PokemonSearchFragment)
         rcvPokemon.adapter = pokemonAdapter
     }
