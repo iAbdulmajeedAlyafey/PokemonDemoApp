@@ -1,14 +1,20 @@
-# Android Studio
-/.idea/
-/*.iml
-
-# Build folders
+*.iml
 .gradle/
-**/build/
-
-# Local config
-local.properties
-
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/deploymentTargetDropDown.xml
+/**/.idea/*
+.DS_Store
+/build
+/buildCache
+/captures
+.externalNativeBuild
+.cxx
 # Logs
 *.log
 
@@ -19,6 +25,4 @@ local.properties
 # Packaged files
 *.apk
 *.ap_
-
-# Misc
-.DS_Store
+local.properties
